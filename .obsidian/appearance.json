@@ -1,0 +1,12 @@
+{
+  "accentColor": "#0078d7",
+  "cssTheme": "Minimal",
+  "theme": "system",
+  "baseFontSize": 16,
+  "enabledCssSnippets": [
+    "heading",
+    "buttons"
+  ],
+  "showViewHeader": true,
+  "nativeMenus": false
+}

@@ -1,0 +1,224 @@
+{
+  "workspaces": {
+    "Note": {
+      "main": {
+        "id": "6e170827031879d8",
+        "type": "split",
+        "children": [
+          {
+            "id": "4c4ff820604d9da5",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "f93e439bfa839f7d",
+                "type": "leaf",
+                "state": {
+                  "type": "empty",
+                  "state": {}
+                }
+              }
+            ]
+          }
+        ],
+        "direction": "vertical"
+      },
+      "left": {
+        "id": "073d8200ad52bc65",
+        "type": "split",
+        "children": [
+          {
+            "id": "152f5bf150a26d11",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "a106c19c5d7af1f0",
+                "type": "leaf",
+                "state": {
+                  "type": "file-explorer",
+                  "state": {
+                    "sortOrder": "alphabetical"
+                  }
+                }
+              },
+              {
+                "id": "fe38e98691917454",
+                "type": "leaf",
+                "state": {
+                  "type": "search",
+                  "state": {
+                    "query": "",
+                    "matchingCase": false,
+                    "explainSearch": false,
+                    "collapseAll": false,
+                    "extraContext": false,
+                    "sortOrder": "alphabetical"
+                  }
+                }
+              },
+              {
+                "id": "befc6c323b722215",
+                "type": "leaf",
+                "state": {
+                  "type": "tag",
+                  "state": {
+                    "sortOrder": "frequency",
+                    "useHierarchy": true
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "id": "17e18cc71d715b0b",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "54bf7c196eda547c",
+                "type": "leaf",
+                "state": {
+                  "type": "outline",
+                  "state": {}
+                }
+              },
+              {
+                "id": "609ef570aa63401e",
+                "type": "leaf",
+                "state": {
+                  "type": "recent-files",
+                  "state": {}
+                }
+              },
+              {
+                "id": "688b065ce06c3645",
+                "type": "leaf",
+                "state": {
+                  "type": "starred",
+                  "state": {}
+                }
+              },
+              {
+                "id": "aa52b27093fb80e5",
+                "type": "leaf",
+                "state": {
+                  "type": "backlink",
+                  "state": {
+                    "collapseAll": false,
+                    "extraContext": false,
+                    "sortOrder": "alphabetical",
+                    "showSearch": false,
+                    "searchQuery": "",
+                    "backlinkCollapsed": false,
+                    "unlinkedCollapsed": true
+                  }
+                }
+              },
+              {
+                "id": "de6c8be564390337",
+                "type": "leaf",
+                "state": {
+                  "type": "outgoing-link",
+                  "state": {
+                    "linksCollapsed": false,
+                    "unlinkedCollapsed": true
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "direction": "horizontal",
+        "width": 285.49999618530273
+      },
+      "right": {
+        "id": "b4f328ea12e55d3d",
+        "type": "split",
+        "children": [
+          {
+            "id": "c371b12287e31143",
+            "type": "tabs",
+            "dimension": 48.45360824742269,
+            "children": [
+              {
+                "id": "42f5265567fef68e",
+                "type": "leaf",
+                "state": {
+                  "type": "calendar",
+                  "state": {}
+                }
+              },
+              {
+                "id": "cfbdf7015237bfc7",
+                "type": "leaf",
+                "state": {
+                  "type": "custom-frames-todo",
+                  "state": {}
+                }
+              }
+            ],
+            "currentTab": 1
+          },
+          {
+            "id": "a49663829088f766",
+            "type": "tabs",
+            "dimension": 51.54639175257731,
+            "children": [
+              {
+                "id": "33d0960be0fef3bf",
+                "type": "leaf",
+                "state": {
+                  "type": "localgraph",
+                  "state": {
+                    "options": {
+                      "collapse-filter": true,
+                      "search": "",
+                      "localJumps": 1,
+                      "localBacklinks": true,
+                      "localForelinks": true,
+                      "localInterlinks": false,
+                      "showTags": false,
+                      "showAttachments": false,
+                      "hideUnresolved": false,
+                      "collapse-color-groups": true,
+                      "colorGroups": [],
+                      "collapse-display": true,
+                      "showArrow": false,
+                      "textFadeMultiplier": 0,
+                      "nodeSizeMultiplier": 1,
+                      "lineSizeMultiplier": 1,
+                      "collapse-forces": true,
+                      "centerStrength": 0.518713248970312,
+                      "repelStrength": 10,
+                      "linkStrength": 1,
+                      "linkDistance": 250,
+                      "scale": 1.3573465037742736,
+                      "close": true
+                    }
+                  }
+                }
+              },
+              {
+                "id": "85c10b76c70f836e",
+                "type": "leaf",
+                "pinned": true,
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "_Database/Buttons/QuickButtons.md",
+                    "mode": "preview",
+                    "source": true
+                  },
+                  "pinned": true
+                }
+              }
+            ],
+            "currentTab": 1
+          }
+        ],
+        "direction": "horizontal",
+        "width": 446.5
+      },
+      "active": "f93e439bfa839f7d"
+    }
+  },
+  "active": "Note"
+}

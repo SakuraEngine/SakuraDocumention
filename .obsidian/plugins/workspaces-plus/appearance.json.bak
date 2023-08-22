@@ -1,0 +1,10 @@
+{
+  "accentColor": "#0078d7",
+  "cssTheme": "Minimal",
+  "theme": "obsidian",
+  "baseFontSize": 16,
+  "enabledCssSnippets": [
+    "heading",
+    "buttons"
+  ]
+}

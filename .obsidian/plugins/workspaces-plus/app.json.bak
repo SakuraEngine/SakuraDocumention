@@ -1,0 +1,21 @@
+{
+  "promptDelete": false,
+  "newLinkFormat": "shortest",
+  "attachmentFolderPath": "./_Attachment",
+  "showLineNumber": true,
+  "newFileLocation": "folder",
+  "alwaysUpdateLinks": true,
+  "defaultViewMode": "preview",
+  "pdfExportSettings": {
+    "includeName": true,
+    "pageSize": "A4",
+    "landscape": false,
+    "margin": "0",
+    "downscalePercent": 100
+  },
+  "userIgnoreFilters": [
+    "_Database/"
+  ],
+  "showUnsupportedFiles": false,
+  "newFileFolderPath": "0-InBox"
+}

@@ -1,0 +1,53 @@
+/* read preview heading */
+.markdown-preview-view h1,
+.markdown-preview-view h2,
+.markdown-preview-view h3,
+.markdown-preview-view h4,
+.markdown-preview-view h5,
+.markdown-preview-view h6 {
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+}
+
+.contextual-typography .markdown-preview-view.markdown-preview-view.is-readable-line-width .markdown-preview-sizer {
+    display: block;
+}
+
+/*callout*/
+.markdown-preview-view div[data-tag-name="div"]>div,
+.markdown-preview-view div[data-tag-name="blockquote"]>blockquote {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+/* contextual-typography */
+.contextual-typography .markdown-preview-view p,
+.contextual-typography .markdown-preview-view ol,
+.contextual-typography .markdown-preview-view ul {
+    margin-top: 0.75em;
+    margin-bottom: 0.75em;
+}
+
+.contextual-typography .markdown-preview-view li>ol,
+.contextual-typography .markdown-preview-view li>ul {
+    margin-top: 0.0em;
+    margin-bottom: 0.0em;
+}
+
+
+/* live preview */
+.HyperMD-header-1,
+.cm-header-1,
+.HyperMD-header-2,
+.cm-header-2,
+.HyperMD-header-3,
+.cm-header-3,
+.HyperMD-header-4,
+.cm-header-4,
+.HyperMD-header-5,
+.cm-header-5,
+.HyperMD-header-6,
+.cm-header-6 {
+    margin-top: 1em !important;
+    margin-bottom: 0.5em !important;
+}
