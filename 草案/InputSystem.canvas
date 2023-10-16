@@ -1,0 +1,41 @@
+{
+	"nodes":[
+		{"id":"259dbce431075f1b","x":-430,"y":100,"width":250,"height":60,"type":"text","text":"Mapping: (1, 0, 0, 0)"},
+		{"id":"6216fee333d2e15c","x":-140,"y":100,"width":250,"height":60,"type":"text","text":"Mapping: (1,0,0,0)"},
+		{"type":"text","text":"Mapping: (0,0,0,0)","id":"f67c49ab805aed34","x":160,"y":100,"width":250,"height":60},
+		{"type":"text","text":"Mapping: (0,0,0,0)","id":"aff11163f071443c","x":460,"y":100,"width":250,"height":60},
+		{"type":"text","text":"## W\nState: Down","id":"6f61d395a03a124f","x":-430,"y":300,"width":250,"height":80},
+		{"type":"text","text":"## A\nState: Down","id":"35858a5850803e6e","x":-140,"y":300,"width":250,"height":80},
+		{"type":"text","text":"## S\nState: Up","id":"97c4f5b5752287d4","x":160,"y":300,"width":250,"height":80},
+		{"type":"text","text":"## D\nState: Up","id":"7fa218d67858ff05","x":460,"y":300,"width":250,"height":80},
+		{"id":"2dd3a1eadd4effde","x":20,"y":580,"width":250,"height":60,"type":"text","text":"HAL"},
+		{"type":"text","text":"Modifier: (0,0,0,0)\nShuffle (XtoY),Scale (-1)","id":"c1cf3a42553d8414","x":160,"y":-60,"width":250,"height":80},
+		{"type":"text","text":"Modifier: (0,0,0,0)\n","id":"cd5c2f61faa891f6","x":460,"y":-60,"width":250,"height":80},
+		{"id":"538e79cdd37502ba","x":-430,"y":-60,"width":250,"height":80,"type":"text","text":"Modifier: (0,1,0,0)\nShuffle (XtoY)"},
+		{"type":"text","text":"Modifier: (-1,0,0,0)\nScale (-1)","id":"e816ee320d57dcfb","x":-140,"y":-60,"width":250,"height":80},
+		{"id":"1a7bede1eac898e9","x":0,"y":-350,"width":250,"height":60,"type":"text","text":"Action: (-1,1,0,0)"},
+		{"id":"64c7460f33f2c5d9","x":0,"y":-480,"width":250,"height":70,"type":"text","text":"Trigger\nOnChange"},
+		{"id":"b09ca867e05df790","x":460,"y":-350,"width":250,"height":60,"type":"text","text":"Callback"}
+	],
+	"edges":[
+		{"id":"154b9ac99ac45b43","fromNode":"2dd3a1eadd4effde","fromSide":"top","toNode":"35858a5850803e6e","toSide":"bottom"},
+		{"id":"1ad00b5f214a70cd","fromNode":"2dd3a1eadd4effde","fromSide":"top","toNode":"6f61d395a03a124f","toSide":"bottom","label":"输入"},
+		{"id":"0875e1c94cc6f94a","fromNode":"2dd3a1eadd4effde","fromSide":"top","toNode":"97c4f5b5752287d4","toSide":"bottom"},
+		{"id":"96e4e341989135f2","fromNode":"2dd3a1eadd4effde","fromSide":"top","toNode":"7fa218d67858ff05","toSide":"bottom"},
+		{"id":"fc575f4c1c3fd842","fromNode":"6f61d395a03a124f","fromSide":"top","toNode":"259dbce431075f1b","toSide":"bottom","label":"监听"},
+		{"id":"14c90beee3b5e2af","fromNode":"35858a5850803e6e","fromSide":"top","toNode":"6216fee333d2e15c","toSide":"bottom"},
+		{"id":"eed9f2ef919da093","fromNode":"97c4f5b5752287d4","fromSide":"top","toNode":"f67c49ab805aed34","toSide":"bottom"},
+		{"id":"157b2f27f229586e","fromNode":"7fa218d67858ff05","fromSide":"top","toNode":"aff11163f071443c","toSide":"bottom"},
+		{"id":"7f89075c2fd4a90c","fromNode":"259dbce431075f1b","fromSide":"top","toNode":"538e79cdd37502ba","toSide":"bottom"},
+		{"id":"6fc63e8c57c1b247","fromNode":"538e79cdd37502ba","fromSide":"top","toNode":"1a7bede1eac898e9","toSide":"bottom","label":"组合"},
+		{"id":"98c657e0f8499417","fromNode":"e816ee320d57dcfb","fromSide":"top","toNode":"1a7bede1eac898e9","toSide":"bottom"},
+		{"id":"33287cb3b24fdf5d","fromNode":"c1cf3a42553d8414","fromSide":"top","toNode":"1a7bede1eac898e9","toSide":"bottom"},
+		{"id":"4575dd1762db3744","fromNode":"cd5c2f61faa891f6","fromSide":"top","toNode":"1a7bede1eac898e9","toSide":"bottom"},
+		{"id":"e7e948a85c9a178c","fromNode":"6216fee333d2e15c","fromSide":"top","toNode":"e816ee320d57dcfb","toSide":"bottom"},
+		{"id":"235f86ef51445f22","fromNode":"f67c49ab805aed34","fromSide":"top","toNode":"c1cf3a42553d8414","toSide":"bottom"},
+		{"id":"494b11b742a8ffc4","fromNode":"aff11163f071443c","fromSide":"top","toNode":"cd5c2f61faa891f6","toSide":"bottom"},
+		{"id":"9da26784561c3aca","fromNode":"1a7bede1eac898e9","fromSide":"top","toNode":"64c7460f33f2c5d9","toSide":"bottom"},
+		{"id":"0afc3fa9e43101cd","fromNode":"64c7460f33f2c5d9","fromSide":"right","toNode":"b09ca867e05df790","toSide":"left"},
+		{"id":"ceba9804ec9a8870","fromNode":"1a7bede1eac898e9","fromSide":"right","toNode":"b09ca867e05df790","toSide":"left"}
+	]
+}
