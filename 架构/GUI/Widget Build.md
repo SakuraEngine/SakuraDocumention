@@ -9,7 +9,7 @@
 4. 调试友好
 ### 方案 1：Builder
 Unreal Engine 的 Slate 框架采用的是 Builder 模式：串联返回自身的 build 方法来初始化参数。典型的代码如下
-```C++
+```cpp
 SNew(SBorder)
 	.Padding(InArgs._ThumbnailPadding)
 	.VAlign(VAlign_Bottom)
@@ -33,7 +33,7 @@ SNew(SBorder)
 6. 缺点：调试不友好，难以断点
 ### 方案 2：Designated initializers
 使用 C++20 的具名初始化列表来构建参数结构，典型的代码如下
-```c++
+```cpp
 SNew(SBorder) 
 {
 	.Padding = InArgs.ThumbnailPadding,
@@ -61,7 +61,7 @@ SNew(SBorder)
 8. 缺点：需要 C++ 20
 ### 方案 3：Lambda Tree
 使用立即调用的 Lambda 来在表达式里注入代码块，典型代码如下
-```c++
+```cpp
 SNew(SBorder) 
 {
 	p.Padding = InArgs.ThumbnailPadding;
@@ -87,7 +87,7 @@ SNew(SBorder)
 6. 优点：参数定义语法噪音小，普通 c++ 结构体
 7. 优点：调试友好，可断点
 复杂逻辑的例子：
-```c++
+```cpp
 SNew(SWidgetX)
 {
 	for(int i = 0; i < data.size(); ++i)

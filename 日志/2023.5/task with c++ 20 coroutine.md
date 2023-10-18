@@ -3,8 +3,8 @@ create: 2023-05-13 23:37
 aliases: 
 tags:
   - TaskSystem
-  - coroutine
-  - cpp
+  - Coroutine
+  - CPP
 ---
 coroutine 相比于 fiber，属于纯粹的语言 feature，fiber 是保存了整个函数的上下文，而 coroutine 是通过编译器分析指定调用点的最小上下文，所以理论上 coroutine 的上下文会小很多。
 并且相比 fiber 通过覆盖寄存器来跳转上下文，coroutine 的调用机制和函数完全相同，这也意味着 fiber 是对称协程，而 coroutine 是非对称协程，fiber 可以随机跳转而 coroutine 只能回到 caller。

@@ -2,7 +2,7 @@
 create: 2023-06-05 14:43
 aliases: 
 tags:
-  - cpp
+  - CPP
 ---
 ## 设计初衷
 天下苦 STL 久矣
