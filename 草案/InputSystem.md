@@ -1,7 +1,9 @@
 ---
 create: 2023-04-24 08:14
-aliases: []
-tags: [HAL, Input]
+aliases: 
+tags:
+  - HAL
+  - Input
 ---
 ## HAL 层
 整体对 [GameInput](https://learn.microsoft.com/en-us/gaming/gdk/_content/gc/input/overviews/input-overview) 进行跨平台的封装，主要由以下几个结构组成：

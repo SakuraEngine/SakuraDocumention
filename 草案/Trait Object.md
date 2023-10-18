@@ -1,12 +1,20 @@
+---
+create: 2023-10-18 13:29
+aliases: 
+tags:
+  - cpp
+---
 trait object 是基于 type erasure 的一种非侵入式多态做法，基本思路是把虚表从对象中拿出来放到外部，这么做的好处有：
 * 非侵入式可以在不修改代码的前提下为已有的类增加多态能力
 	* 可以将 free function 视为扩展函数来进行多态
 * 多个 trait 可以更好的共存，不存在多继承中的对象头偏移问题
 * 扩展的虚表在实例化时才生成，不实例化不会生成
+
 缺点有：
 * 外部虚表需要一个额外的指针来记录和传递，在参数上有传染性
+
 示例代码如下：
-```c++
+```cpp
 strait("guid" : "706B824D-6D6B-4A76-99D4-2F770558EC03")
 struct mytrait
 {
@@ -51,7 +59,7 @@ void test()
 }
 ```
 其中 ``mytrait`` 的展开代码如下：
-```c++
+```cpp
 template <typename T>
 struct mytrait_T {
   using Self = mytrait_T<T>;
@@ -87,7 +95,7 @@ public:
 };
 ```
 
-```c++
+```cpp
 void mytrait::speak() { return _impl->speak(self); }
 int mytrait::getA() { return _impl->getA(self); }
 void mytrait::dosomething() { return _impl->dosomething(self); }
