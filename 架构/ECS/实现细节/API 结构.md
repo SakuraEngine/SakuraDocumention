@@ -37,7 +37,7 @@ DUAL_DECLARE(storage_t);
 DUAL_API void dualS_allocate_type(dual_storage_t* storage, const dual_entity_type_t* type, EIndex count, dual_view_callback_t callback);
 ```
 实现层：
-```c++
+```cpp
 //storage.hpp
 extern "C" struct dual_storage_t
 {
@@ -62,7 +62,7 @@ extern "C"
 }
 ```
 封装层：
-```c++
+```cpp
 //dual.hpp
 namespace dual
 {

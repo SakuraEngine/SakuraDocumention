@@ -5,7 +5,7 @@ tags: [ECS, BuildSystem/Codegen]
 ---
 得利于[[状态同步示例]]中大量的 ECS 实践，修复了大量 ECS 实现中的错误，并补全了 ECS 上层 C++接口的设计工作。此次更新包含了针对 query 的两层全新的封装。
 拿一个简单的例子来说
-```C++
+```cpp
 query = dualQ_from_literal("[in]speed, [inout]position, !static");
 dualJ_schedule_ecs(query, +[](void* u, dual_query_t* query, dual_chunk_view_t* view, dual_type_index_t* localTypes, EIndex entityIndex)
 {
@@ -22,7 +22,7 @@ dualJ_schedule_ecs(query, +[](void* u, dual_query_t* query, dual_chunk_view_t* v
 * `localTypes[0]` 表示 query 中的第 0 个参数，没有检查，增删参数容易错位
 ## C++ Query
 C++ 层是建立在老的接口之上的封装层，主要做了一些安全性的改进，在封装之后的代码如下：
-```c++
+```cpp
 dual::schedual_task(query, [](dual::task_context_t ctx)
 {
 	auto speeds = ctx.get_owned_ro<speed_t>(0);
@@ -35,7 +35,7 @@ dual::schedual_task(query, [](dual::task_context_t ctx)
 * 参数类型带有可选的运行时检查
 ## Codegen Query
 在设计 query 的构建的 api 的时候，之所以选择了一个简单 dsl 而没有使用一个 builder 的原因其一是因为基础的 ecs api 采用了 c 接口，对 builder 并不友好，其二是通过字符串 dsl 可以轻松的使得其他语言也能使用，其三则是适配 codegen。新的基于 codegen 的 api 如下：
-```c++
+```cpp
 sreflect_struct("query" : "[in]speed, [inout]position, !static")
 struct Q
 { GENERATED_QUERY_BODY() };
@@ -46,7 +46,7 @@ dual::schedual_task(query, [](Q::TaskContext ctx)
 }, ...);
 ```
 其中 Q 会展开为
-```c++
+```cpp
 struct Q::TaskContext : private dual::task_cnntext_t
 {
 	struct View
