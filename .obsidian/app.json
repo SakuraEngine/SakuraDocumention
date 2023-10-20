@@ -1,5 +1,7 @@
 {
   "promptDelete": false,
   "attachmentFolderPath": "./",
-  "propertiesInDocument": "source"
+  "propertiesInDocument": "source",
+  "newFileLocation": "folder",
+  "newFileFolderPath": "草案"
 }

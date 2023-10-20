@@ -15,7 +15,7 @@ OGUI 的定位是同时作为 Sakura Engine 的 ==Editor GUI== 框架和 Sakura 
 ### 排版 & 渲染 & 绑定
 从灵活性、完备性角度出发，提出以下要求：
 - ==复杂文字排版和渲染==，支持可插入控件的富文本，支持复杂文字效果（下划线，描边，阴影等），支持文字动画，支持复杂的对齐方式与断行（双端对齐），支持复杂语言（阿拉伯语）以及 RTL 排版，支持 emoji，支持多种字体格式（FT，MSDF 等）以及多种渲染方式（图集，GPU SVG）
-- ==基础的文本编辑==，支持基本的光标，框选，输入以及IME
+- ==基础的文本编辑==，支持基本的光标，框选，输入以及 IME
 - ==动态的控件结构==，以适应 Game 中频繁的 Transform、Animation，以及频繁的控件树结构变化
 - ==易用的动画==，支持帧动画，过度，自定义动画，材质动画，图元动画以及 Lottie，PAG 等第三方动画格式
 - ==自由组装的布局系统==，在支持 Box 套 Box 的向下约束系统同时，还要支持子控件影响父控件的自适应系统
@@ -89,4 +89,21 @@ OGUI 的定位是同时作为 Sakura Engine 的 ==Editor GUI== 框架和 Sakura 
 - [x] RenderObject Paint 流程
 
 ## 📝记录
+### 设计哲学
+SkrGUI 遵循的设计哲学是：**从简单直白的概念出发，通过概念再拼装提供复杂功能。**
 
+==平衡控件更新与表达直观性==：
+- 简单设计：使用 Widget 进行表达，RenderObject 进行具体 UI 功能的承载，Element 作为中介控制 Widget -> RenderObject 的信息传输
+- 复杂功能：通过 StatelessWidget/StatefulWidget 的拼装组成复杂的业务逻辑，比如一个 TextField，可能由以下组件构成
+	- TextFieldState：存储控件状态
+	- Focus：获取焦点
+	- Text：内容
+	- ColoredBox/ImageBox：输入框和光标
+
+==解决控件之间的信息传输问题==：
+- 简单设计：通过树形结构，将某一 Widget 节点作为作用域，将 Widget 的祖先控件作为通知对象，提供控件间信息传输与**控件封装**的更好选择。
+- 复杂功能：通过 InheritedWidget/StatefulWidget 的嵌套组合，可以实现特定复杂功能控件的封装，其表现会依循父子关系的变化而变化
+
+==焦点管理与导航==：
+- 简单设计：提供 FocusNode/FocusScope 的基础封装由控件（或者用户传入的方法）控制焦点的迁移
+- 复杂功能：控件本身提供一套默认的 Navigation 方法，而这个方法可以由用户覆盖

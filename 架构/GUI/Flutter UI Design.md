@@ -466,6 +466,20 @@ RenderObject 持有的通常是一个 ContainerLayer，通过 `RenderObject::upd
 
 默认值由 Window 提供，我们可以通过控件覆写这两个值来实现 DPI Scale
 
+## 输入
+Flutter 视鼠标输入为手势，通过 `GestureBinding` 处理输入，使用 `GestureRecognizer` 识别手势，并派发事件。
+### 手势识别
+在 `GestureBinding` 中有一个 `PointerRouter`，在触发事件时，会记录每个 Pointer 的 `GestureRecognizer`，并使用既存的 `GestureRecognizer` 对手势进行响应
+### PointerEvent
+以经典的点击事件为例，在  `GestureBinding::_handlePointerEventImmediately` 中，先使用 `GestureBinding::hitTestInView` 进行射线检测，随后使用 `GestureBinding::dispatchEvent` 进行事件派发
+#### HitTest
+通过 Flutter 的根控件——RenderView，进行 hit test，一路向 `HitTestResult` 内添加 `HitTestEntry`，需要注意的是只有在 PointDown/PointHover 的时候会进行 HitTest，随后会记录住对应的 Path，在 PointUp/PointCancel 时复用，并进行 DIspatch
+#### Dispatch
+通过遍历 HitTest 返回的 Path 触发对应事件，在触发的过程中会收集手势信息，如 Click/Drag/Drop 等复合事件，是通过手势系统触发的，并不会便利 Path，而是由手势系统决定
+
+## 焦点
+通过 `FocusManager` 管理焦点，通过 `FocusNode` 与控件进行交流（对应控件 `Focus`），通过 `FocusScopeNode` 进行 Focus 流转的作用域控制（对应控件 `FocusScope`），焦点迁移的规则由 `FocusTraversalGroup/FocusTraversalPolicy` 提供
+
 ## Docking 与 Window
 Window 代表系统窗口，作为 Host 持有 BuildOwner 与一颗完整的控件树，DockWindow 作为一个抽象概念，挂载到 DockArea 控件下，DockArea 按需调用 `DockWindow::build` 构建显示内容
 
@@ -491,3 +505,6 @@ GDI device 存储于 PipelineOwner，在 `RenderObject::attach` 时获取并执�
 - [Layout widgets | Flutter](https://docs.flutter.dev/ui/widgets/layout)
 - [详解px,dp,pt,sp,ppi,dpi及屏幕适配 - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/267325087)
 - [万字长文！一文搞懂 Flutter 局部刷新机制 - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/429641624)
+- [Flutter 必知必会系列 —— 从 GestureBinding 中看 Flutter 手势处理过程 - 掘金 (juejin.cn)](https://juejin.cn/post/7103773537470676999)
+- [Flutter FocusNode 焦点那点事-(一) - 掘金 (juejin.cn)](https://juejin.cn/post/6854573216015499271)
+- [Flutter FocusNode 焦点那点事-(二) - 掘金 (juejin.cn)](https://juejin.cn/post/6854573216216645646)
