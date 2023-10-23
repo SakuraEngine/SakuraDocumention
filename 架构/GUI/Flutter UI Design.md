@@ -474,6 +474,10 @@ Flutter 视鼠标输入为手势，通过 `GestureBinding` 处理输入，使用
 以经典的点击事件为例，在  `GestureBinding::_handlePointerEventImmediately` 中，先使用 `GestureBinding::hitTestInView` 进行射线检测，随后使用 `GestureBinding::dispatchEvent` 进行事件派发
 #### HitTest
 通过 Flutter 的根控件——RenderView，进行 hit test，一路向 `HitTestResult` 内添加 `HitTestEntry`，需要注意的是只有在 PointDown/PointHover 的时候会进行 HitTest，随后会记录住对应的 Path，在 PointUp/PointCancel 时复用，并进行 DIspatch
+
+flutter 的 hit test 是控件相关的，由于控件与控件之间的嵌套关系是确定的，这样的设计并没有什么问题：
+- RenderBox，参数为 position（Offset）
+- RenderSliver，参数为 main/cross axis 的 position
 #### Dispatch
 通过遍历 HitTest 返回的 Path 触发对应事件，在触发的过程中会收集手势信息，如 Click/Drag/Drop 等复合事件，是通过手势系统触发的，并不会便利 Path，而是由手势系统决定
 
