@@ -25,6 +25,6 @@
   "minimal-style@@code-background@@dark": "#121212",
   "minimal-style@@code-background@@light": "#E1E1E1",
   "minimal-style@@zoom-off": true,
-  "minimal-style@@p-spacing": "0.75rem",
   "minimal-style@@heading-spacing": "1em",
+  "minimal-style@@p-spacing": "0.75rem"
 }
