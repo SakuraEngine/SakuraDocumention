@@ -401,7 +401,8 @@ OGUI 使用以下控件实现单控件布局：
 |    SliverGrid    |         |              |           |
 |    SliverList    |         |              |           |
 | CustomScrollView |         |              |           |
-
+### Layout & Paint
+`PipelineOwner::flushLayout` 执行 layout 刷新逻辑，`PipelineOwner::flushPaint` 执行 paint 拼装逻辑，在 layout 期间，`RenderSliver` 等控件可能需要中途载入新控件，这时，会使用 `RenderObject::invokeLayoutCallback` 来创建并附着控件。
 
 ## Layer & Composition
 ```mermaid
