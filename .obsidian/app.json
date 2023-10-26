@@ -3,5 +3,6 @@
   "attachmentFolderPath": "./",
   "propertiesInDocument": "source",
   "newFileLocation": "folder",
-  "newFileFolderPath": "草案"
+  "newFileFolderPath": "草案",
+  "alwaysUpdateLinks": true
 }
