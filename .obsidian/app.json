@@ -4,5 +4,6 @@
   "propertiesInDocument": "source",
   "newFileLocation": "folder",
   "newFileFolderPath": "草案",
-  "alwaysUpdateLinks": true
+  "alwaysUpdateLinks": true,
+  "showLineNumber": true
 }
