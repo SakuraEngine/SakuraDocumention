@@ -1,0 +1,21 @@
+{
+	"nodes":[
+		{"id":"5b396540c470bfdf","x":-217,"y":-520,"width":695,"height":185,"color":"4","type":"group","label":"APP"},
+		{"id":"f7e905230b634a9d","type":"group","x":-216,"y":40,"width":696,"height":180,"color":"3","label":"Backend--工作平台"},
+		{"id":"84d77c0f1e94b7d3","type":"group","x":132,"y":-280,"width":348,"height":267,"color":"#3247ec","label":"CoreSystem--核心系统"},
+		{"id":"b682ffa770d7ad5f","type":"group","x":-217,"y":-280,"width":337,"height":267,"color":"1","label":"CoreFrameWork--控件框架"},
+		{"id":"4bb380dc2191feab","type":"text","text":"IME","x":40,"y":69,"width":182,"height":50},
+		{"id":"57c5a376d27fec88","type":"text","text":"VectorGraphics","x":260,"y":69,"width":182,"height":50},
+		{"id":"ab19e1a829608f9b","type":"text","text":"TextServices","x":-182,"y":140,"width":182,"height":50},
+		{"id":"22c47f119f42fbe2","type":"text","text":"Resources","x":40,"y":140,"width":182,"height":50},
+		{"id":"e577e48541403201","type":"text","text":"System Info","x":260,"y":140,"width":182,"height":50},
+		{"id":"209da6b290e762b8","type":"text","text":"NativeWindow","x":-182,"y":69,"width":182,"height":50},
+		{"id":"e8f0f70221dc1bb4","type":"text","text":"Notifaction --- 向根部派发通知","x":-200,"y":-93,"width":300,"height":50},
+		{"id":"f665d9b430b0ca75","type":"text","text":"WindowManager --- 窗口管理、Docking","x":160,"y":-180,"width":300,"height":60},
+		{"id":"6fc5582381d5b712","x":160,"y":-100,"width":300,"height":60,"type":"text","text":"FocusManager --- 焦点管理、键盘输入"},
+		{"id":"3dbe0e301c074509","type":"text","text":"InputManager --- （Pointer）输入管理、手势","x":160,"y":-260,"width":300,"height":60},
+		{"id":"f6b9a1c717c0c0b8","type":"text","text":"Widget/Element/RenderObject","x":-200,"y":-250,"width":300,"height":50},
+		{"id":"3b8c4809a6f4cf2c","type":"text","text":"State/Inherit --- 状态与信息管理","x":-200,"y":-170,"width":300,"height":50}
+	],
+	"edges":[]
+}
