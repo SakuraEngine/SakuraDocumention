@@ -14,11 +14,12 @@ tags: []
 %%{init: { "flowchart": {"useMaxWidth" : 1} } }%%
 flowchart TD
 
-Device["Device"]
+NativeDevice["NativeDevice"]
 BuildOwner["Build Owner"]
 PipelineOwner["Pipeline Owner"]
+OtherSystem["Other Systems..."]
 
-Sandbox("SandBox")
+Sandbox{"SandBox"}
 
 NativeWindow1["NativeWindow"]
 NativeWindow2["NativeWindow"]
@@ -28,25 +29,19 @@ InputManager1["InputManager"]
 InputManager2["InputManager"]
 InputManager3["InputManager"]
 
-FocusManager1["InputManager"]
-FocusManager2["InputManager"]
-FocusManager3["InputManager"]
-
-Device-->Sandbox
+NativeDevice-->Sandbox
 BuildOwner-->Sandbox
 PipelineOwner-->Sandbox
+OtherSystem-->Sandbox
 
 Sandbox-->NativeWindow1
 Sandbox-->NativeWindow2
 Sandbox-->NativeWindow3
 
-NativeWindow1-->FocusManager1
 NativeWindow1-->InputManager1
-
-NativeWindow2-->FocusManager2
 NativeWindow2-->InputManager2
-
-NativeWindow3-->FocusManager3
 NativeWindow3-->InputManager3
 ```
-==InputManager 与 FocusManager 可以合并==
+
+其中，sandbox 是一个外部概念，代表对基本系统的拼装，将 Input/WindowManager 功能，与 CoreFrameWork 相组合，形成最终工作的控件树。
+
