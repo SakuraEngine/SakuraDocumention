@@ -5,6 +5,7 @@ tags: []
 ---
 
 ```cpp
+// for struct
 sreflect_struct(
 	"rttr": {
 		"enable": true           // default: true   默认生成一个空壳对象
@@ -14,4 +15,12 @@ sreflect_struct(
 		"reflect_methods": true, // default: false  默认 method 反射
 	}
 )
+
+// for field/method
+sattr("rttr": { 
+		"enable": true, // 控制单个 field/method 是否反射
+		// ... other fields
+   }
+)
+sattr("rttr": true)               // 简写
 ```
