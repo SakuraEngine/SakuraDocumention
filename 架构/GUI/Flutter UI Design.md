@@ -467,6 +467,89 @@ RenderObject 持有的通常是一个 ContainerLayer，通过 `RenderObject::upd
 
 默认值由 Window 提供，我们可以通过控件覆写这两个值来实现 DPI Scale
 
+## 如何控制 Update 范围
+flutter 提供了声明式的控件表达，而声明式的表达由于其本身的==无状态==，数据更新需要通过重新构建控件表达来实现，为了解决重新构建表达造成的==排版/绘制/合成==开销，flutter 设计了 Widget<-Element->RenderObject 的架构，**选择性**的让声明层的重构刷新到实际的控件层。
+
+尽管解决了**排版/绘制/合成**的开销，表达层的 Widget 构建依旧是一笔可观的开销，为了控制 Update 的范围，flutter 提供了以下两种机制：
+### State/StatefulWidget
+State 被==持久化==存储在 Element 中，State 的更改会触发 StatefulElement 的 Rebuild 从而调用==State 的 Build==，将数据映射到控件，需要注意的是，如果在 `State::build()` 中建立了 StatefulWidget，一旦该 State 发生改变，其下的 StatefulWidget 由于 Element 的驱动作用==也会发生 Rebulid==，所以，如果想阻断更新，应该这么做：
+```dart
+class Test extends StatefulWidget {
+	final Widget child;
+	final Color  color;
+	final Color  hoveredColor;
+	State<Test> createState() => TestState();
+}
+
+class TestState extends State<Test> {
+	bool hovered = false;
+	Widget build(BuildContext context) {
+		return MouseRegin (
+			onEnter: (_) => { setState(() => { horvered = true }) },
+			onExit: (_) => { setState(() => { horvered = false }) },
+			child: Container(
+				color: hovered ? widget.hoveredColor : widget.color,
+				child: widget.child
+			)
+		)
+	}
+}
+```
+
+这样，当 State 数据发生更改时，由于 child 始终是同一个控件，更改作用域只有 `MouseRegion` 和 `Container` 两个控件。
+### InheritedWidget/InheritedModel
+通过向父控件（IheritedWidget）添加依赖的方式，在父控件发生数据变化时候，通知对应的子控件更新，InheritedWidget 提供粗粒度的通知，即任何控件值发生变化，都会导致==所有==依赖更新，InheritedModel 提供一种细化更新的方式，允许子控件依赖==单个值==的变化。
+
+通常与 StatefulWidget 联用，实现更新阻断的同时完成局域更新：
+```dart
+class ThemeData extends InheritedWidget {
+	final Color  color;
+	final Color  hoveredColor;
+}
+
+class ThemedApp extends StatefulWidget {
+	//...
+	final Widget child;
+	State<ThemedApp> createState() => ThemedAppState();
+}
+class ThemedAppState extends State<ThemedApp> {
+	final Color  color;
+	final Color  hoveredColor;
+	
+	Widget build(BuildContext context) {
+		theme_child = ThemeData (
+			color: color,
+			hoveredCOlor: hoveredColor,
+			child: widget.child
+		);
+		
+		return {XXXWidgets}(
+			child: theme_child
+		);
+	}
+}
+```
+
+这样，当 state 的数据发生改变时，只有 ThemeData 发生了更新，从而促进依赖它的子控件更新
+### StatelessWidget + InheritedWidget
+InheritedWidget 的更新通知为 StatelessWidget 的刷新带来了可能，依赖的 InheritedWidget 的更新会触发 StatelessWidget 的 `build()`，从而实现局部刷新，需要注意的是，StatelessWidget==没有阻断更新的能力==，如果滥用会导致性能问题
+### 状态管理框架
+由于 State 通过控件维持在控件树上，如果**上层/平级**控件树需要知道同样的 State 会非常麻烦，这时候无非有以下选择：
+1. 维护两个 State，并维护它们之间的数据同步，但是这==引入了新的复杂度==，且==数据同步容易出错==，==违背了单向数据流的初衷==
+2. 将 State 控件上移，以保证所有控件的数据都来源于一个 State，但是这==导致更新范围扩大==，在大型项目中，最后会造成==所有的数据更改都要导致整个页面重新构建==的问题
+
+这个问题可以通过 InheritedWidget 来缓解，通过==将数据封装如 InheritedWidget 并提高层级==，我们可以非常精准的控制刷新域，但是，这也引入了过多的样板代码，一组数据需要如下代码：
+- 数据类
+- InheritedWidget 封装
+- StatefulWidget 封装
+- State 封装
+
+那么，我们能否通过框架实现其中 StatefulWidget、State、InheritedWidget 的封装，通过提供一个带通知回调的数据类，以及一个模板控件，直接实现这个功能呢。
+
+于是 Flutter 提供了两种框架
+- Porivder
+- Riverpod
+
 ## 输入
 Flutter 视鼠标输入为手势，通过 `GestureBinding` 处理输入，使用 `GestureRecognizer` 识别手势，并派发事件。
 ### 手势识别
@@ -513,3 +596,6 @@ GDI device 存储于 PipelineOwner，在 `RenderObject::attach` 时获取并执�
 - [Flutter 必知必会系列 —— 从 GestureBinding 中看 Flutter 手势处理过程 - 掘金 (juejin.cn)](https://juejin.cn/post/7103773537470676999)
 - [Flutter FocusNode 焦点那点事-(一) - 掘金 (juejin.cn)](https://juejin.cn/post/6854573216015499271)
 - [Flutter FocusNode 焦点那点事-(二) - 掘金 (juejin.cn)](https://juejin.cn/post/6854573216216645646)
+- [Flutter完整开发实战详解(十五、全面理解State与Provider) - 掘金 (juejin.cn)](https://juejin.cn/post/6844903866706706439)
+- [Flutter | 状态管理指南篇——Provider - 掘金 (juejin.cn)](https://juejin.cn/post/6844903864852807694)
+- [Flutter Riverpod 全面深入解析，为什么官方推荐它？ - 掘金 (juejin.cn)](https://juejin.cn/post/7063111063427874847)
