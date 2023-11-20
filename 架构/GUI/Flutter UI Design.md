@@ -551,15 +551,41 @@ InheritedWidget 的更新通知为 StatelessWidget 的刷新带来了可能，�
 - Riverpod
 
 ## 输入
-Flutter 视鼠标输入为手势，通过 `GestureBinding` 处理输入，使用 `GestureRecognizer` 识别手势，并派发事件。
-### 手势识别
-在 `GestureBinding` 中有一个 `PointerRouter`，在触发事件时，会记录每个 Pointer 的 `GestureRecognizer`，并使用既存的 `GestureRecognizer` 对手势进行响应
-### PointerEvent
+### 总体结构
+对 GUI 来说，输入事件分为 PointerInput（鼠标、触摸、笔）与 KeyInput（Keyboard、Gamepad）输入，对于一些特殊的轴向输入，通常可以被转化为 PointerInput 与 KeyInput 两种输入。
+
+Flutter 将输入事件拆分成了两类——原始输入和手势输入，这也与其发展于移动端有很大的关系，原始事件是指直接由设备发出的事件，对于 Pointer 来说，通常有：
+- Add/Remove/Move：主要针对触摸屏，即触点的增减于移动
+- Down/Up/Hover：主要针对鼠标，按下，释放和移动
+- Enter/Exit：主要针对带光标系统，不是设备事件，但也不是光标事件，由 MouseTracker 提供
+- Zoom/Pan：主要针对触摸板，缩放和移动
+- Scale/Scroll：由滚轮发出的缩放和滚动事件
+
+关于 Move 和 Horver：
+flutter 给出的定义是：
+- Move：The pointer has moved with respect to the device while in contact with the device
+- Hover：The pointer has moved with respect to the device while not in contact with the device
+
+即，Move 是「按下」状态的，而 Hover 是「浮起」状态的，在触屏设备下，光标移动必须在 Add/Remove 或者是 Down/Up 的区间内，而在带指针的设备下，则没有这个限制。
+
+对 Key 来说，状态就简单了很多，只分为：
+- Down/Up：按下抬起
+- Repeat：长按触发的反复输入
+
+### PointerInput
+#### 输入设备
+- Stylus
+- Trackpad
+- Mouse
+- Touch
+#### 手势
+手势通过  `GestureBinding` 处理，使用 `GestureRecognizer` 识别手势，提供了控件 `RawGestureDetector` 来配置的手势响应，提供了控件 `GestureDetector` 来监听和实现常见手势
+#### 事件触发流程
 以经典的点击事件为例，在  `GestureBinding::_handlePointerEventImmediately` 中，先使用 `GestureBinding::hitTestInView` 进行射线检测，随后使用 `GestureBinding::dispatchEvent` 进行事件派发
 #### HitTest
 通过 Flutter 的根控件——RenderView，进行 hit test，一路向 `HitTestResult` 内添加 `HitTestEntry`，需要注意的是只有在 PointDown/PointHover 的时候会进行 HitTest，随后会记录住对应的 Path，在 PointUp/PointCancel 时复用，并进行 DIspatch
 
-flutter 的 hit test 是控件相关的，由于控件与控件之间的嵌套关系是确定的，这样的设计并没有什么问题：
+flutter 的 hit_test 并未在 RenderObject 层提供抽象，而是从 RenderBox/RenderSliver 开始提供，由于控件与控件之间的嵌套关系是确定的，这样的设计并没有什么问题：
 - RenderBox，参数为 position（Offset）
 - RenderSliver，参数为 main/cross axis 的 position
 #### Dispatch
