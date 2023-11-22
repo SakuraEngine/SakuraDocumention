@@ -580,6 +580,8 @@ flutter 给出的定义是：
 - Touch
 #### 手势
 手势通过  `GestureBinding` 处理，使用 `GestureRecognizer` 识别手势，提供了控件 `RawGestureDetector` 来配置的手势响应，提供了控件 `GestureDetector` 来监听和实现常见手势
+
+对于支持复数个手势的控件产生的手势冲突，Flutter 提供了 `GestureArenaManager` 来实现手势的管理，遵循规则「第一个 accpect，或者最后一个没被 reject 的成员获胜」，
 #### 事件触发流程
 以经典的点击事件为例，在  `GestureBinding::_handlePointerEventImmediately` 中，先使用 `GestureBinding::hitTestInView` 进行射线检测，随后使用 `GestureBinding::dispatchEvent` 进行事件派发
 #### HitTest

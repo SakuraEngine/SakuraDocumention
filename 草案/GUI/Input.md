@@ -19,6 +19,7 @@ UI 的输入千奇百怪，但对于 UI 系统来说，只需要关注一组特�
 #### 记录的状态
 - Pointer Down 所 Hit 的控件，用于 Dispatch Pointer Up 事件
 - 在 Dispatch Event 过程中，产生的手势
+- PointerTracker 追踪光标的移动状态
 #### 与 Window Manager 的关系
 input manager 可能是针对某个具体 Native Window 的，原因如下：
 - UI 系统需要记录当前活跃的窗口以派发 KeyEvent
@@ -41,3 +42,6 @@ focus manager 同样也是针对某个 Native Window 的，原因如下:
 - 当前窗口无需关注其它窗口的 Focus，Focus 的概念具有强烈的 Scope 内聚性
 
 因此，Focus Manager 也理应以窗口为单位。
+
+## FUCK U INPUT CONTEXT
+BuildOwner 在本框架中，被设计为了管理整个框架的核心，其有义务记录控件树树根——NativeWindow，而 NativeWindow 则相当于一个 InputContext 区域，上文所述的需要存储在 InputContext 中的状态，实际上更适合以全局的方式进行存储，因此，有一个 InputManager 或者 BuildOwner 其实就已经足够。
