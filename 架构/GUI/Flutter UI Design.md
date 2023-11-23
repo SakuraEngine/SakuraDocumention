@@ -581,7 +581,9 @@ flutter 给出的定义是：
 #### 手势
 手势通过  `GestureBinding` 处理，使用 `GestureRecognizer` 识别手势，提供了控件 `RawGestureDetector` 来配置的手势响应，提供了控件 `GestureDetector` 来监听和实现常见手势
 
-对于支持复数个手势的控件产生的手势冲突，Flutter 提供了 `GestureArenaManager` 来实现手势的管理，遵循规则「第一个 accpect，或者最后一个没被 reject 的成员获胜」，
+对于支持复数个手势的控件产生的手势冲突，Flutter 提供了 `GestureArenaManager` 来实现手势的管理，遵循规则「第一个 accpect，或者最后一个没被 reject 的成员获胜」
+
+为了实现手势冲突的决议，手势需要在没有被 accpect 的时候缓存状态，直到完成决议后一口气释放事件
 #### 事件触发流程
 以经典的点击事件为例，在  `GestureBinding::_handlePointerEventImmediately` 中，先使用 `GestureBinding::hitTestInView` 进行射线检测，随后使用 `GestureBinding::dispatchEvent` 进行事件派发
 #### HitTest
@@ -627,3 +629,4 @@ GDI device 存储于 PipelineOwner，在 `RenderObject::attach` 时获取并执�
 - [Flutter完整开发实战详解(十五、全面理解State与Provider) - 掘金 (juejin.cn)](https://juejin.cn/post/6844903866706706439)
 - [Flutter | 状态管理指南篇——Provider - 掘金 (juejin.cn)](https://juejin.cn/post/6844903864852807694)
 - [Flutter Riverpod 全面深入解析，为什么官方推荐它？ - 掘金 (juejin.cn)](https://juejin.cn/post/7063111063427874847)
+- [Flutter之竞技场（Arena）原理解析 - 掘金 (juejin.cn)](https://juejin.cn/post/6874570159768633357)
