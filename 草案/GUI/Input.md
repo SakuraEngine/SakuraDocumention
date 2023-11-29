@@ -51,3 +51,16 @@ focus manager 同样也是针对某个 Native Window 的，原因如下:
 
 ## FUCK U INPUT CONTEXT
 BuildOwner 在本框架中，被设计为了管理整个框架的核心，其有义务记录控件树树根——NativeWindow，而 NativeWindow 则相当于一个 InputContext 区域，上文所述的需要存储在 InputContext 中的状态，实际上更适合以全局的方式进行存储，因此，有一个 InputManager 或者 BuildOwner 其实就已经足够。
+
+## 手势竞争
+为每个触点/按钮建立一个竞技场，在竞技场中胜出的一方会真正的处理事件，每次只有一个手势可以胜出，当一个手势需要拥有多个 pointer 时，通常会在这多个 pointer 的竞技场中都胜出。
+
+desktop 的手势由 pointer & button 复合而成，因为通常我们不会使用多个鼠标物理按键协同操作，因此不同的 button 可以被视为不同种类的 pointer，接受各自的竞争
+
+输入响应（手势操作）方面，我们以==单点触控==作为核心 Feature，为 Desktop 提供的手势通常只能在 Desktop 平台使用，而为 Touch 提供的手势（通常为单点触控），则可以接受 Desktop 的消息来模拟一些操作。
+
+界面对不同平台输入的兼容性，通常体现在控件的实现（以及对手势的拼装），而不是在手势这一层完成的，在手势这一层进行这种工作会降低对各个平台的兼容性。
+
+==？==：既然如此，那么是否不应该提供类似 Flutter 的 GestureDetector 的控件，而要求每一个受控的控件都自主维护一个 Gesture 呢，因为提供一个巨大的 GestureDetector 控件意味着提供一个体量非常大的控件结构，并且这样的通用性封装会增加控件树深度，其提供的通用逻辑本身也没那么实用
+
+==FUCK==：杜绝 Flutter 的傻逼通用封装行为，GestureRecognizer 的生命周期是由业务需求决定的，比方说我写一个简单的 Button，只需要监听 Click 行为，Recognizer 的生命周期就跟着 State 走，如果我需要写一个浏览器底部栏的功能性 Button，那么我的 Recognizer 就跟着 Widget 一起走，毕竟我的行为可能要发生改变，但是频率也不大，弄一个超大 GestureDetector 去装所有的回调，==纯属傻逼行为==，况且 GestureRecognizer 本身也是轻量对象，对频繁刷新不敏感，压根不需要一个 Factory 来隔离重复创建，反而是 Function 不可 Copy 的性质非常傻逼（虽然这是 C++ 的锅），如果使用 Factory 的话，代码就压根没法写了
