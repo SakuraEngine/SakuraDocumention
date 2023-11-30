@@ -594,6 +594,54 @@ flutter 的 hit_test 并未在 RenderObject 层提供抽象，而是从 RenderBo
 - RenderSliver，参数为 main/cross axis 的 position
 #### Dispatch
 通过遍历 HitTest 返回的 Path 触发对应事件，在触发的过程中会收集手势信息，如 Click/Drag/Drop 等复合事件，是通过手势系统触发的，并不会便利 Path，而是由手势系统决定
+#### 手势组织结构
+```mermaid
+%%{init: { "flowchart": {"useMaxWidth" : 1} } }%%
+classDiagram
+dir
+
+GestureRecognizer<|--OneSequenceGestureRecognizer
+GestureRecognizer<|--DoubleTapGestureRecognizer
+GestureRecognizer<|--MultiDragGestureRecognizer
+GestureRecognizer<|--MultiTapGestureRecognizer
+
+OneSequenceGestureRecognizer<|--PrimaryPointerGestureRecognizer
+OneSequenceGestureRecognizer<|--DragGestureRecognizer
+
+PrimaryPointerGestureRecognizer<|--BaseTapGestureRecognizer
+PrimaryPointerGestureRecognizer<|--LongPressGestureRecognizer
+BaseTapGestureRecognizer<|--TapGestureRecognizer
+
+DragGestureRecognizer<|--PanGestureRecognizer
+DragGestureRecognizer<|--HorizontalDragGestureRecognizer
+DragGestureRecognizer<|--VerticalDragGestureRecognizer
+
+
+class GestureRecognizer
+
+class OneSequenceGestureRecognizer
+class MultiDragGestureRecognizer
+class MultiTapGestureRecognizer
+class DoubleTapGestureRecognizer
+
+class PrimaryPointerGestureRecognizer
+class BaseTapGestureRecognizer
+class LongPressGestureRecognizer
+class TapGestureRecognizer
+
+class DragGestureRecognizer
+class PanGestureRecognizer
+class HorizontalDragGestureRecognizer
+class VerticalDragGestureRecognizer
+
+```
+
+我们关注个重要抽象：
+- `OneSequenceGestureRecognizer`：一次只识别一个手势的识别器
+- `PrimaryPointerGestureRecognizer`：以一个按键为主按键的手势，主要以按下/长按为主
+- `DragGestureRecognizer`：拖拽
+- `DoubleTapGestureRecognizer`：双击，因为它的判定流程跨越了两次 Down/Up，所以不属于 `OneSequenceGestureRecognizer`
+- `MultiDragGestureRecognizer` 和 `MultiTapGestureRecognizer`：一次识别多次拖拽和点击事件
 
 ## 焦点
 通过 `FocusManager` 管理焦点，通过 `FocusNode` 与控件进行交流（对应控件 `Focus`），通过 `FocusScopeNode` 进行 Focus 流转的作用域控制（对应控件 `FocusScope`），焦点迁移的规则由 `FocusTraversalGroup/FocusTraversalPolicy` 提供
