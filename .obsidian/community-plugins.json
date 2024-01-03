@@ -15,5 +15,9 @@
   "obsidian-tasks-plugin",
   "templater-obsidian",
   "workspaces-plus",
-  "obsidian-copy-block-link"
+  "obsidian-copy-block-link",
+  "float-search",
+  "floating-toc",
+  "settings-search",
+  "obsidian-hover-editor"
 ]

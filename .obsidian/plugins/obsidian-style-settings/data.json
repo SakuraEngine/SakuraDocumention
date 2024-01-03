@@ -26,5 +26,13 @@
   "minimal-style@@code-background@@light": "#E1E1E1",
   "minimal-style@@zoom-off": true,
   "minimal-style@@heading-spacing": "1em",
-  "minimal-style@@p-spacing": "0.75rem"
+  "minimal-style@@p-spacing": "0.75rem",
+  "floating-toc-styles@@toggle-floating-toc-header-color": false,
+  "floating-toc-styles@@floating-toc-remove-heading-indicator": true,
+  "floating-toc-styles@@enable-outline-style": "float-curves-outline-style",
+  "floating-toc-styles@@floating-toc-response-time": 0,
+  "floating-toc-styles@@floating-toc-font-size": 0.9,
+  "floating-toc-styles@@floating-toc-line-color@@dark": "#9F9F9F",
+  "floating-toc-styles@@floating-toc-highlight-color": "#FF7E00",
+  "floating-toc-styles@@floating-toc-background-color@@dark": "#20202066"
 }
