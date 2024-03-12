@@ -46,26 +46,112 @@ shared_module("Meta", "META", engine_version)
 }
 
 ```
-### 数组式简写
-为了简化书写，方便配置，可以提供数组式的简写
-```cpp
-"rttr": ["field", "method", "no-bases"]
-```
-### 开关简写
-为了方便对某个功能的开关，可以提供 bool 简写
+### 简写
+为了简化书写，方便配置，可以提供一些简写方式：
+- 开关简写：映射到 enable 词条
 ```cpp
 "rttr": true
 ```
-### 路径简写
+- 其它简写：通过 parser 自由定义
+```cpp
+"rttr": "full"
+"rttr": ["field", "method", "no-bases"]
+```
+### 路径折叠
 为了折叠路径，可以使用 `::` 来指定路径
 ```cpp
 "rttr::reflect_bases": false
 ```
-### 覆写条目
-字段值覆写行为必须显式指定，指定方式是在条目尾部添加 `!`，如果不添加该修饰符，并覆写了字段，会引发报错
+### 覆写
+通常来说，不允许==叶子词条==重复出现，如果需要对先前词条进行改动，需要在词条尾部添加 `!` 或 `!!` 来进行覆写，其中，`!` 代表部分覆写，`!!` 代表完全重写，部分覆写代表只覆写给出的条目，完全重写则会将先前已经赋过的值完全重置，==覆写只对叶子词条生效（包括 List）==
+
+非叶子词条可以重复出现，只要他们最终在叶子词条部分不出现冲突：
 ```cpp
+"test": {
+	"A": 100
+}
+"test": {
+	"B": 200
+}
+```
+
+某些情况下，我们期望的叶子词条会是一个没有预定义结构的字典，由于覆写检查会在预处理阶段进行，这个字典也会按照预处理的规则拼接：
+```cpp
+"meta": {
+	"editor_readonly": true
+}
+"meta": {
+	"display_type": "table"
+}
+```
+
+对各种简写情况下的行为，我们做出如下定义：
+- 简写覆写：将对应条目完全映射并覆写
+```cpp
+"rttr!": ["field", "method"]
 "rttr!": false
 ```
+- 路径覆写：将对应条目完全映射并覆写
+```cpp
+"rttr::reflect_bases!": false // 展开为下面的形态
+"rttr": {
+	"reflect_bases!": false
+}
+
+"rttr!::reflect_bases": false // 展开为下面形态
+"rttr!": {
+	"reflect_bases": false
+}
+
+"rttr!!::reflect_bases": false // 展开为下面形态，需要注意的是，rttr 下的其余词条均被抹除，强制重写从 rttr 开始
+"rttr!!" {
+	"reflect_base": false
+}
+```
+- 完整的 functional 覆写：从标记覆写开始的所有子对象均视为覆写
+```cpp
+"rttr!": {
+	"reflect_fields": true,
+	"reflect_methods": true,
+}
+"func": {
+	"sub_func!" : { // 从这里开始，所有叶子节点的变量都会被覆写
+		"A": 1,
+		"B": 2,
+		"func!!": { // 从这里开始，变成了强制覆盖
+			"C": 3,
+			"func!": { // 从这里开始，又变成了覆写
+				"D":, 
+			}
+		}
+	}
+}
+```
+
+### 合并
+除了覆写需求，有时候还需要对某个词条的值进行合并（通常用于 List），合并词条以 `+` 结尾，规则如下：
+- 无论如何，以 `+` 结尾都会导致结果为 List，如果需要字典合并，应当使用覆写规则
+```cpp
+"test": 10
+"test+": "shit"
+// 最终合成
+"test": [10, "shit"]
+
+"test+": [10, 114.514]
+"test+": "shit"
+// 最终合成
+"test": [10, 114.514, "shit]
+
+"test+": "fuck"
+// 最终合成
+"test": ["fuck"]
+
+"test": { "fuck": true }
+"test+": 100
+// 最终合成
+"test": [ {"fuck": true}, 100 ]
+```
+
 ## AttributeGroup
 为了简化 attribute 的书写可以提供预设的 Attribute Group，通过如下方式使用：
 ```cpp
